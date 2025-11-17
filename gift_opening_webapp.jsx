@@ -12,7 +12,7 @@ export default function GiftPage() {
         transition={{ duration: 0.5 }}
         className="text-3xl font-bold mb-6 text-pink-800"
       >
-        🎁 Open Your Gift
+        🎁 Gift for Mn
       </motion.div>
 
       {!opened ? (
