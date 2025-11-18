@@ -16,7 +16,7 @@
       align-items: center;
       height: 100vh;
       text-align: center;
-      overflow: hidden;
+      overflow: hidden; /* prevents jump when slideshow appears */
     }
 
     .card {
@@ -41,12 +41,12 @@
 
     .hidden { display: none; }
 
-    /* Slideshow */
+    /* ---- Slideshow ---- */
     .slideshow-container {
       width: 90vw;
       max-width: 500px;
       margin-top: 20px;
-      display: none;
+      display: none; /* hidden until gift opens */
       position: relative;
     }
 
@@ -82,35 +82,30 @@
 <body>
 
 <div class="card" id="card">
-  <!-- Audio file in public folder -->
   <h2>🎁 Gift for Mn ⚯</h2>
   <button class="btn" id="openBtn">Tap to Open 🎀</button>
-  
   <p id="msg" class="hidden" style="font-size: 20px; margin-top: 20px; color:#d14d7d;">
     💗 Surprise! Someone is thinking of you.
   </p>
+</div>
 
-  <!-- Slideshow -->
-  <div class="slideshow-container" id="slideshow">
-    <div class="slide"><img src="https://placehold.co/600x400/pink/white?text=Image+1" /></div>
-    <div class="slide"><img src="https://placehold.co/600x400/fdd/333?text=Image+2" /></div>
-    <div class="slide"><img src="https://placehold.co/600x400/ffe6f2/333?text=Image+3" /></div>
-    <div class="dots" id="dots"></div>
-  </div>
+<!-- Slideshow appears AFTER unlocking -->
+<div class="slideshow-container" id="slideshow">
+  <!-- Replace these images later -->
+  <div class="slide"><img src="https://placehold.co/600x400/pink/white?text=Image+1" /></div>
+  <div class="slide"><img src="https://placehold.co/600x400/fdd/333?text=Image+2" /></div>
+  <div class="slide"><img src="https://placehold.co/600x400/ffe6f2/333?text=Image+3" /></div>
+
+  <div class="dots" id="dots"></div>
 </div>
 
 <script>
-  // Open gift button click
+  // Open Gift
   document.getElementById("openBtn").onclick = function () {
-    const music = document.getElementById("bgMusic");
-    music.volume = 0.5;
-    music.play().catch(() => console.log("Music blocked"));
-
-    // Hide button, show message
     this.style.display = "none";
     document.getElementById("msg").classList.remove("hidden");
 
-    // Slight card animation
+    // Expand card upward slightly for animation feel
     document.getElementById("card").style.transform = "translateY(-10px)";
 
     // Show slideshow after short delay
@@ -120,21 +115,20 @@
     }, 700);
   };
 
-  // Slideshow logic
+  // ---- Slideshow Logic ----
   let slideIndex = 0;
+
   function startSlideshow() {
     const slides = document.querySelectorAll(".slide");
     const dotsContainer = document.getElementById("dots");
 
-    // Generate dots only once
-    if (dotsContainer.children.length === 0) {
-      slides.forEach((_, i) => {
-        const dot = document.createElement("span");
-        dot.classList.add("dot");
-        if (i === 0) dot.classList.add("active");
-        dotsContainer.appendChild(dot);
-      });
-    }
+    // Generate dots based on number of images
+    slides.forEach((_, i) => {
+      const dot = document.createElement("span");
+      dot.classList.add("dot");
+      if (i === 0) dot.classList.add("active");
+      dotsContainer.appendChild(dot);
+    });
 
     const dots = document.querySelectorAll(".dot");
 
@@ -148,7 +142,7 @@
       slides[slideIndex - 1].style.display = "block";
       dots[slideIndex - 1].classList.add("active");
 
-      setTimeout(showSlide, 2000);
+      setTimeout(showSlide, 2000); // Change every 2 seconds
     }
 
     showSlide();
@@ -157,4 +151,3 @@
 
 </body>
 </html>
-
