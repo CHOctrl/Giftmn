@@ -101,21 +101,20 @@
 
 <script>
   // Open Gift
-  document.getElementById("openBtn").onclick = function () {
-  
-  // play music on user interaction (mobile safe)
+document.getElementById("openBtn").onclick = function () {
+  // play music
   const music = document.getElementById("bgMusic");
-  music.volume = 0.5; // not too loud
-  music.play().catch(() => {
-    console.log("Music blocked until user interacts again");
-  });
+  music.volume = 0.5;
+  music.play().catch(() => console.log("Music blocked"));
 
-  // existing actions
+  // hide button and show message
   this.style.display = "none";
   document.getElementById("msg").classList.remove("hidden");
 
+  // card animation
   document.getElementById("card").style.transform = "translateY(-10px)";
 
+  // show slideshow after delay
   setTimeout(() => {
     document.getElementById("slideshow").style.display = "block";
     startSlideshow();
@@ -171,5 +170,6 @@
 
 </body>
 </html>
+
 
 
